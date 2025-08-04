@@ -56,6 +56,8 @@ export default function About() {
         <motion.a
           whileHover={{ scale: 1.05 }}
           href="/resume.pdf" // replace with your actual CV file in public/
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-block mt-10 px-8 py-3 rounded-lg bg-gradient-to-r from-violet-500 to-purple-600 hover:from-purple-700 hover:to-violet-700 transition-all duration-300 font-semibold shadow-lg"
         >
           📄 Download CV
