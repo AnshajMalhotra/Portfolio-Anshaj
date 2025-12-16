@@ -21,13 +21,13 @@ const experiences = [
       "Founded a tech-driven student initiative, focusing on sustainable solutions - bike pooling for college-going students without commission.",
   },
   {
-    year: "2023 \ January- May",
+    year: "2023 ( January- May )",
     title: "Firmware Intern (Trackonomy, India)",
     description:
       "Developed BLE & LoRa-based low-level firmware for IoT devices (nRF Semiconductors), bridging hardware & cloud for secure data pipelines. Optimized BLE Sniffing Algorithm by 20%.",
   },
   {
-    year: "2023 \ June - September",
+    year: "2023 ( June - September )",
     title: "Backend Developer (Heximpact → Senstra, Australia)",
     description:
       "Built scalable REST APIs, optimized PostgreSQL schemas, integrated AWS services & implemented containerized deployments for large-scale IoT event handling.",
