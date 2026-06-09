@@ -17,7 +17,7 @@ const projects = [
     description:
       "Internal Heximpact work across heartbeat APIs, sensor data handling, ESP32 mutex learning, storage flows, and secure firmware updates.",
     category: "Cloud + Embedded",
-    image: "/5.jpg",
+    image: "/2.jpg",
     cta: "Project notes",
     details: [
       "Worked on internal Heximpact systems involving heartbeat API development, learning sensor data handlers, backend data storage, and IoT device data flow.",
@@ -58,7 +58,7 @@ const projects = [
     description:
       "Transmission Head work for Efficycle, combining mechanical design ownership with CAD and CAE analysis for Team GS Racers.",
     category: "Mechanical Design",
-    image: "/2.jpg",
+    image: "/5.jpeg",
     repoUrl:
       "https://www.linkedin.com/posts/anshaj-malhotra-19023514a_teamgsracers-activity-6803117842733633536-Yhso?utm_source=share&utm_medium=member_desktop&rcm=ACoAACP8TbwBCuh0Zs3R1sWH4PFoPp1vAoeulvM",
     cta: "View post",
