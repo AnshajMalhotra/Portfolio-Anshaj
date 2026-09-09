@@ -76,20 +76,31 @@ export default function AboutMe() {
           </p>
         </div>
         <div className="about-details">
-          <article>
+          <article className="education-section">
             <p className="eyebrow">EDUCATION</p>
-            <h3>M.Eng. Electrical and Informational Technology</h3>
-            <p>Hochschule Wismar · Expected March 2027</p>
-            <p>
-              Coursework completed; Master’s thesis remaining.
-              <br />
-              Current grade: 2.3
-            </p>
-            <p className="previous-degree">
-              B.Tech. Electronics and Instrumentation Engineering
-              <br />
-              SGSITS, Indore · 2019–2023
-            </p>
+            <ul className="education-list">
+              <li className="education-card">
+                <span className="education-label">
+                  MASTER’S DEGREE · IN PROGRESS
+                </span>
+                <h3>M.Eng. Electrical and Informational Technology</h3>
+                <p>Hochschule Wismar</p>
+                <span className="education-date">Expected March 2027</span>
+                <p className="education-note">
+                  Coursework completed; Master’s thesis remaining.
+                  <br />
+                  Current grade: 2.3
+                </p>
+              </li>
+              <li className="education-card">
+                <span className="education-label">
+                  BACHELOR’S DEGREE · COMPLETED
+                </span>
+                <h3>B.Tech. Electronics and Instrumentation Engineering</h3>
+                <p>SGSITS, Indore</p>
+                <span className="education-date">2019–2023</span>
+              </li>
+            </ul>
           </article>
           <article className="languages">
             <p className="eyebrow">LANGUAGES</p>
@@ -101,16 +112,52 @@ export default function AboutMe() {
               <strong>Hindi</strong> Native
             </p>
           </article>
-          <article>
-            <p className="eyebrow">BEYOND THE DESK</p>
-            <p>
-              Math tutoring at Turito. Campus research and pitching with the
-              four-person Zhhoop team. Transmission design with GS Racers at
-              Efficycle: reported All-India Rank 5 and Best Project Plan Award.
-              Community work with Block 17 in Wismar, and badminton off the
-              clock.
-            </p>
-          </article>
+        </div>
+        <div className="engagement-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">BEYOND THE DESK</p>
+              <h3>More than the technical work.</h3>
+            </div>
+            <p>Teaching, building together, and showing up.</p>
+          </div>
+          <div className="engagement-grid">
+            {[
+              {
+                icon: "∑",
+                label: "TEACHING",
+                title: "Making maths click",
+                text: "Math tutoring at Turito, translating difficult concepts into clear explanations.",
+              },
+              {
+                icon: "↗",
+                label: "ENTREPRENEURSHIP",
+                title: "From idea to pitch",
+                text: "Campus research and pitching with the four-person Zhhoop team, exploring shared student commutes.",
+              },
+              {
+                icon: "⚙",
+                label: "TEAM ENGINEERING",
+                title: "Building with GS Racers",
+                text: "Transmission design for Efficycle. Best Project Plan team award; reported All-India Rank 5.",
+              },
+              {
+                icon: "17",
+                label: "COMMUNITY",
+                title: "At home in a new team",
+                text: "Community work with Block 17 in Wismar, and badminton off the clock.",
+              },
+            ].map((item) => (
+              <article className="engagement-card" key={item.label}>
+                <span className="engagement-icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <p className="eyebrow">{item.label}</p>
+                <h4>{item.title}</h4>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </>

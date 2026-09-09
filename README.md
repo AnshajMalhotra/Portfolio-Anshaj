@@ -19,6 +19,8 @@ The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome
 
 - Project claims and source links: `src/data/projects.js`.
 - Case-study dialogs use native modal dialogs, focus restoration, Escape handling and explicit Tab boundaries.
+- Both degrees are presented as education cards. Six compact image/illustration cards preserve PCB, FreeRTOS, CIFAR-10, Zhhoop, Cineplex and Efficycle work under the featured case studies.
+- A single contact Spline scene is dynamically imported only when visible on desktop, with pause/resume, offscreen/background pausing, touch opt-in and a reduced-motion still view. Its optional runtime is substantially larger than the main page bundle; it is not part of the initial page load.
 - Contact transport requires HTTP and application success and aborts after 12 seconds.
 - `public/site` is the only public asset directory. Original legacy assets elsewhere under `public` are not included in the build.
 - The reviewed German CV is `public/site/resume-de.pdf`. No English translation is offered.

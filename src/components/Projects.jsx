@@ -26,17 +26,21 @@ export default function Projects() {
       </div>
       <div className="project-toolbar">
         <div className="filters" role="group" aria-label="Filter projects">
-          {["All work", "IoT / RTLS", "Embedded / Test", "Data / Web"].map(
-            (label) => (
-              <button
-                key={label}
-                aria-pressed={filter === label}
-                onClick={() => setFilter(label)}
-              >
-                {label}
-              </button>
-            ),
-          )}
+          {[
+            "All work",
+            "IoT / RTLS",
+            "Embedded / Test",
+            "Data / Web",
+            "Product / Design",
+          ].map((label) => (
+            <button
+              key={label}
+              aria-pressed={filter === label}
+              onClick={() => setFilter(label)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
         <span className="results-count" aria-live="polite">
           {visible.length + secondary.length} projects
@@ -80,20 +84,58 @@ export default function Projects() {
       </div>
       {secondary.length > 0 && (
         <div className="secondary-projects">
-          <p className="eyebrow">ALSO EXPLORING</p>
+          <div className="collection-heading">
+            <div>
+              <p className="eyebrow">MORE OF MY WORK</p>
+              <h3>From circuit boards to campus ideas.</h3>
+            </div>
+            <p>Projects, prototypes and learning along the way.</p>
+          </div>
           <div>
             {secondary.map((project) => (
-              <article key={project.title}>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <a
-                  className="text-link"
-                  href={project.repo}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View source ↗
-                </a>
+              <article className="small-project-card" key={project.title}>
+                <figure className="small-project-image">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.imageAlt}
+                      width="640"
+                      height="400"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="rtos-art" aria-hidden="true">
+                      <span>Task A</span>
+                      <b>↔</b>
+                      <span>Event bits</span>
+                      <b>↔</b>
+                      <span>Task B</span>
+                    </div>
+                  )}
+                  <figcaption>{project.imageCaption}</figcaption>
+                </figure>
+                <div className="small-project-body">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  {project.repo && (
+                    <a
+                      className="text-link"
+                      href={project.repo}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {project.actionLabel || "View source"} ↗
+                    </a>
+                  )}
+                  {project.details && (
+                    <details className="project-notes">
+                      <summary>
+                        Read project story <span aria-hidden="true">↗</span>
+                      </summary>
+                      <p>{project.details}</p>
+                    </details>
+                  )}
+                </div>
               </article>
             ))}
           </div>

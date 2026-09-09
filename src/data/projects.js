@@ -71,24 +71,63 @@ export const projects = [
 
 export const secondaryProjects = [
   {
-    title: "Fuel-cell monitoring board",
+    title: "Fuel-cell monitoring PCB",
+    image: "/projects/pcb.webp",
+    imageAlt: "KiCad 3D view of the fuel-cell monitoring PCB",
+    imageCaption: "PCB DESIGN",
     category: "Embedded / Test",
     description:
-      "Academic hardware prototype. Public evidence includes KiCad PCB and schematic files; firmware and end-to-end cloud monitoring are not verified in this repository.",
+      "Custom fuel-cell monitoring PCB with KiCad schematics for measurement, signal isolation and ESP32-S3 integration. Academic hardware prototype.",
     repo: github + "Fuel-Cell-Monitoring-",
   },
   {
     title: "FreeRTOS event-group lab",
+    imageCaption: "FREERTOS / LEARNING LAB",
     category: "Embedded / Test",
     description:
-      "Learning exercise with ESP-IDF tasks, event bits and a blink example. Source available; no hardware test is claimed here.",
+      "ESP-IDF tasks, event bits and synchronization, explored through a compact FreeRTOS firmware learning exercise.",
     repo: github + "Tech-Stack--FREERTOS",
   },
   {
     title: "CIFAR-10 image classifier",
+    image: "/projects/cifar.webp",
+    imageAlt: "Examples of the ten CIFAR-10 image classes",
+    imageCaption: "DATASET EXAMPLES",
     category: "Data / Web",
     description:
-      "Academic prototype with a Streamlit upload interface and ONNX inference. Model files and MATLAB integration code are available; no new accuracy claim.",
+      "An image-classification workflow combining Streamlit uploads, ONNX inference and MATLAB integration. Academic prototype.",
     repo: github + "Cifar_10_python",
+  },
+  {
+    title: "Zhhoop bike-pooling app",
+    category: "Product / Design",
+    image: "/projects/zhhoop.webp",
+    imageAlt: "Zhhoop ride-sharing app identity",
+    imageCaption: "STARTUP CONCEPT",
+    description:
+      "A campus bike-pooling concept shaped through student research, solution design and pitching with a four-person team.",
+    details:
+      "Zhhoop explored fixed-destination ride sharing for campus commutes. My work covered problem research, product positioning and pitching. The project received AICTE seed funding as reported in my records. The visual is project branding; no public live app or verified user-count claim is offered here.",
+  },
+  {
+    title: "Cineplex / CINE_FUN",
+    category: "Data / Web",
+    image: "/projects/cineplex.webp",
+    imageAlt: "Console views from the Cineplex booking and management project",
+    imageCaption: "APPLICATION SCREENSHOTS",
+    description:
+      "A cinema booking and management application with admin and user modes, seat selection and pricing workflows.",
+    repo: github + "Cineplex-Management-System",
+  },
+  {
+    title: "Efficycle · CAD & CAE",
+    category: "Product / Design",
+    image: "/projects/efficycle.webp",
+    imageAlt: "GS Racers team vehicle at Efficycle",
+    imageCaption: "TEAM GS RACERS",
+    description:
+      "Transmission design and manufacturing with GS Racers. Best Project Plan team award and reported All-India Rank 5.",
+    repo: "https://www.linkedin.com/posts/anshaj-malhotra-19023514a_teamgsracers-activity-6803117842733633536-Yhso",
+    actionLabel: "View project post",
   },
 ];

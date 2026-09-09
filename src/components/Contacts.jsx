@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { sendContact } from "../lib/contact";
+import ContactScene from "./ContactScene";
 export default function Contacts() {
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
@@ -73,6 +74,7 @@ export default function Contacts() {
             GitHub ↗
           </a>
         </div>
+        <ContactScene />
       </div>
       <form
         className="contact-form"

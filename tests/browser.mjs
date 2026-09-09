@@ -45,8 +45,9 @@ try {
       for (const [filter, total, featured] of [
         ["IoT / RTLS", 2, 2],
         ["Embedded / Test", 3, 1],
-        ["Data / Web", 3, 2],
-        ["All work", 6, 3],
+        ["Data / Web", 4, 2],
+        ["Product / Design", 2, 0],
+        ["All work", 9, 3],
       ]) {
         await page.getByRole("button", { name: filter, exact: true }).click();
         assert.equal(await page.locator(".project-card").count(), featured);
