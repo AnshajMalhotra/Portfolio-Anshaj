@@ -1,12 +1,37 @@
-# React + Vite
+# Anshaj Malhotra — Engineering Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite portfolio for IoT, embedded systems and industrial applications, with a focus on Werkstudent and Master's thesis opportunities around Karlsruhe.
 
-Currently, two official plugins are available:
+## Develop and verify
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm ci
+npm run dev
+npm run lint
+npm test
+npm run build
+npm run preview
+```
 
-## Expanding the ESLint configuration
+The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome browser. Install Playwright in your test environment or expose an existing installation through `NODE_PATH`. Set `PREVIEW_URL` to the server to test, then run `node tests/browser.mjs`. It mocks every contact submission; it never sends the test messages to the live endpoint.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Content and assets
+
+- Project claims and source links: `src/data/projects.js`.
+- Case-study dialogs use native modal dialogs, focus restoration, Escape handling and explicit Tab boundaries.
+- Contact transport requires HTTP and application success and aborts after 12 seconds.
+- `public/site` is the only public asset directory. Original legacy assets elsewhere under `public` are not included in the build.
+- The reviewed German CV is `public/site/resume-de.pdf`. No English translation is offered.
+- Locate-IQ's screenshot shows its public frontend running offline with repository sample records. Its connection label was clarified for the screenshot. No employer database was used.
+- Automotive chart values come from the repository's stored synthetic sample, also available as `quality-sample.json`. They are not live factory results.
+- Private attachments, source inspection checkouts and local review artifacts belong in ignored `.local-review`, never in public assets.
+
+## Deployment
+
+Keep the existing `anshaj` Vercel project and React/Vite setup. Use a reviewed non-production preview before any production release. The local branch is `codex/portfolio-phase-one`. No production deployment is authorized by a preview request.
+
+## Verification scope
+
+The Phase 1 checks cover desktop/tablet/mobile layouts down to 320 px, a 200% content zoom check, reduced motion, keyboard navigation, filters, dialogs, the CV payload, metadata and mocked contact success/failure/timeout states. These checks do not prove delivery through the live Google Apps Script endpoint.
+
+The 10-project demonstration backlog and CV-engine/LinkedIn changes are separate phases.
