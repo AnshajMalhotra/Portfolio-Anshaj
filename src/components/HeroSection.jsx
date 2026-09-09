@@ -1,68 +1,103 @@
-import { motion } from "framer-motion";
-import Spline from "@splinetool/react-spline";
-
-const HeroSection = () => {
+import { useRef } from "react";
+export default function HeroSection() {
+  const portrait = useRef(null);
+  function tilt(event) {
+    if (
+      !window.matchMedia(
+        "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+      ).matches
+    )
+      return;
+    const box = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - box.left) / box.width - 0.5) * 8;
+    const y = ((event.clientY - box.top) / box.height - 0.5) * -6;
+    portrait.current.style.transform =
+      "perspective(1200px) rotateY(" + x + "deg) rotateX(" + y + "deg)";
+  }
   return (
-    <motion.section
-      id="home"  // ✅ Added for smooth scrolling navigation
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.2 }}
-      className="relative h-screen bg-gradient-to-b from-violet-900 to-black flex flex-col xl:flex-row items-center justify-between lg:px-24 px-8 overflow-hidden"
-    >
-      {/* ✅ Left Content */}
-      <div className="z-40 text-center xl:text-left mt-16 xl:mt-0">
-        <motion.h1
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 50,
-            damping: 20,
-            delay: 0.3,
-          }}
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-white mb-6"
-        >
-          Building Fast <br /> Reliable Results
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 50,
-            damping: 20,
-            delay: 0.6,
-          }}
-          className="text-lg md:text-xl lg:text-2xl text-violet-200 max-w-2xl mx-auto xl:mx-0 leading-relaxed"
-        >
-          I build intelligent, scalable, and efficient solutions—whether it’s
-          designing low-level firmware for embedded devices, architecting robust
-          backend APIs, or integrating IoT systems that bridge hardware with the
-          cloud. With hands-on experience in GoLang, Python, and C/C++, I have
-          developed real-world solutions involving BLE, LoRa, and cloud services,
-          ensuring seamless data flow from sensors to applications.
-        </motion.p>
+    <section id="home" className="hero shell">
+      <div className="hero-copy">
+        <p className="eyebrow">
+          <span className="status-dot" /> Anshaj Malhotra · Karlsruhe, Germany
+        </p>
+        <h1>
+          IoT Solutions<span>Embedded Systems</span>
+          <span className="muted-heading">Industrial Applications</span>
+        </h1>
+        <p className="hero-lead">
+          I connect devices, data
+          <br className="desktop-break" /> and applications.
+        </p>
+        <p className="hero-description">
+          My experience spans BLE firmware, MQTT data pipelines, Go backend
+          services and RTLS web tools, with hands-on work at DynaWo, Heximpact
+          and Trackonomy.
+        </p>
+        <div className="hero-actions">
+          <a className="button primary" href="#projects">
+            Explore my work <span aria-hidden="true">↗</span>
+          </a>
+          <a className="button secondary" href="/resume-de.pdf" download>
+            Download CV · DE <span aria-hidden="true">↓</span>
+          </a>
+          <a className="text-link" href="#contact">
+            Contact me ↗
+          </a>
+        </div>
+        <div className="availability">
+          <span className="status-dot" />
+          <div>
+            <strong>
+              Seeking Werkstudent or Master’s thesis opportunities
+            </strong>
+            <span>Karlsruhe and surrounding areas</span>
+          </div>
+        </div>
       </div>
-
-      {/* ✅ Right Spline Animation */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute xl:static xl:flex xl:justify-end right-0 top-0 w-full xl:w-[50%] h-[50vh] xl:h-full"
+      <div
+        className="portrait-area"
+        onPointerMove={tilt}
+        onPointerLeave={() => {
+          portrait.current.style.transform = "";
+        }}
       >
-        <Spline
-          scene="https://prod.spline.design/zJ0UKaZGv19XflII/scene.splinecode"
-          className="w-full h-full"
-        />
-      </motion.div>
-
-      {/* ✅ Soft Overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-transparent xl:hidden"></div>
-    </motion.section>
+        <div className="portrait-card" ref={portrait}>
+          <div className="portrait-topline">
+            <span>HARDWARE ↔ SOFTWARE</span>
+            <span aria-hidden="true">+</span>
+          </div>
+          <img
+            src="/portrait.webp"
+            alt="Anshaj Malhotra"
+            width="840"
+            height="1120"
+            fetchPriority="high"
+          />
+          <div className="portrait-caption">
+            <span>Anshaj Malhotra</span>
+            <span>M.Eng. student</span>
+          </div>
+        </div>
+        <div className="portrait-note">
+          <span className="crosshair" aria-hidden="true">
+            ⌖
+          </span>
+          <div>
+            From the device
+            <br />
+            <strong>to the decision.</strong>
+          </div>
+        </div>
+      </div>
+      <div className="hero-bottom">
+        <p>
+          M.Eng. student at <strong>Hochschule Wismar</strong>
+          <span>Coursework completed; Master’s thesis remaining</span>
+        </p>
+        <a href="#projects" className="scroll-cue">
+          SELECTED WORK <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
   );
-};
-
-export default HeroSection;
+}

@@ -1,89 +1,165 @@
-import { motion } from "framer-motion";
-import { FiCheckCircle } from "react-icons/fi"; // for bullet icons
-
-export default function About() {
-  const skills = [
-    "Bridged firmware & cloud at Trackonomy with BLE & LoRa IoT solutions",
-    "Built RESTful APIs & PostgreSQL data models for large-scale IoT at Heximpact (Senstra)",
-    "Experienced in GoLang, Python, C/C++, AWS & containerized deployments",
-    "Strong focus on secure OTA updates & edge-to-cloud data flows",
-    "Thrive in IoT, cloud architecture & automation-driven ecosystems",
-    "Aim to deliver reliable, scalable & future-ready backend infrastructures",
-  ];
-
+const capabilities = [
+  {
+    number: "01",
+    title: "Embedded",
+    skills:
+      "C/C++ · ESP32 · nRF52 · FreeRTOS · BLE · J-Link · Testing & debugging",
+    evidence: "Firmware validation at Trackonomy; prototypes at Heximpact.",
+    link: "#experience",
+  },
+  {
+    number: "02",
+    title: "IoT & localization",
+    skills: "MQTT · Node-RED · BLE · RTLS · RSSI validation",
+    evidence: "Gateway pipelines and localization testing at DynaWo.",
+    link: "#experience",
+  },
+  {
+    number: "03",
+    title: "Applications & data",
+    skills: "Go · Python · React/TypeScript · REST APIs · PostgreSQL · NocoDB",
+    evidence: "Locate-IQ and sensor-data services for Senstra at Heximpact.",
+    link: "#projects",
+  },
+  {
+    number: "04",
+    title: "Delivery & solution work",
+    skills:
+      "Docker · Linux · Git · API validation · Hardware evaluation · Documentation · Stakeholder communication",
+    evidence: "Locate-IQ container configuration and DynaWo solution work.",
+    link: "#projects",
+  },
+];
+export default function AboutMe() {
   return (
-    <section
-      id="about" // ✅ important for smooth scroll
-      className="relative min-h-screen flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-violet-800 to-purple-900 px-6 md:px-16 py-20"
-    >
-      {/* ✅ Left: About Me Text */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="md:w-1/2 text-left text-white"
-      >
-        {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-          Hi, I’m{" "}
-          <span className="text-violet-300 drop-shadow-md">Anshaj Malhotra</span>
-        </h1>
-
-        {/* Intro */}
-        <p className="mt-6 text-lg text-violet-100 max-w-xl leading-relaxed">
-          A <strong>Backend & Embedded Systems Developer</strong> passionate
-          about creating scalable, secure, and future-ready solutions.
-        </p>
-
-        {/* ✅ Bullet Points with icons */}
-        <ul className="mt-6 space-y-4">
-          {skills.map((text, index) => (
-            <motion.li
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 * index }}
-              className="flex items-start space-x-3 text-violet-100 text-base leading-relaxed"
-            >
-              <FiCheckCircle className="text-violet-300 flex-shrink-0 mt-1" />
-              <span>{text}</span>
-            </motion.li>
-          ))}
-        </ul>
-
-        {/* ✅ Download CV Button */}
-        <motion.a
-          whileHover={{ scale: 1.05 }}
-          href="/resume.pdf" // replace with your actual CV file in public/
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-10 px-8 py-3 rounded-lg bg-gradient-to-r from-violet-500 to-purple-600 hover:from-purple-700 hover:to-violet-700 transition-all duration-300 font-semibold shadow-lg"
-        >
-          📄 Download CV
-        </motion.a>
-      </motion.div>
-
-      {/* ✅ Right: Portrait Image */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="relative md:w-1/2 flex justify-center mt-12 md:mt-0"
-      >
-        <div className="relative">
-          {/* Decorative Frame */}
-          <div className="absolute -top-6 -left-6 w-full h-full border-4 border-violet-300 rounded-xl shadow-lg"></div>
-
-          {/* ✅ Photo from public folder */}
-          <img
-            src="/Potrait.jpg"
-            alt="Anshaj Malhotra"
-            className="relative z-10 w-[260px] sm:w-[300px] md:w-[360px] rounded-xl shadow-2xl object-cover"
-          />
+    <>
+      <section id="capabilities" className="section shell">
+        <div className="section-heading">
+          <div>
+            <p className="eyebrow">03 / CAPABILITIES</p>
+            <h2>Connecting the pieces.</h2>
+          </div>
+          <p>
+            From requirements and hardware evaluation
+            <br />
+            to implementation and validation.
+          </p>
         </div>
-      </motion.div>
-    </section>
+        <div className="capability-grid">
+          {capabilities.map((item) => (
+            <article className="capability" key={item.title}>
+              <span className="card-number">{item.number}</span>
+              <h3>{item.title}</h3>
+              <p>{item.skills}</p>
+              <a href={item.link}>
+                {item.evidence} <span aria-hidden="true">↗</span>
+              </a>
+            </article>
+          ))}
+        </div>
+        <p className="exposure-note">
+          <strong>Evaluation & exposure</strong> LoRaWAN, Wirepas and UWB
+          hardware assessment. Implementation depth varies by technology.
+        </p>
+      </section>
+      <section id="about" className="section shell about-section">
+        <div className="about-title">
+          <p className="eyebrow">04 / A LITTLE CONTEXT</p>
+          <h2>
+            An engineer.
+            <br />
+            Always a student.
+          </h2>
+          <p>
+            I enjoy the work between disciplines: understanding a requirement,
+            choosing the right hardware, and making the data useful.
+          </p>
+        </div>
+        <div className="about-details">
+          <article className="education-section">
+            <p className="eyebrow">EDUCATION</p>
+            <ul className="education-list">
+              <li className="education-card">
+                <span className="education-label">
+                  MASTER’S DEGREE · IN PROGRESS
+                </span>
+                <h3>M.Eng. Electrical and Informational Technology</h3>
+                <p>Hochschule Wismar</p>
+                <span className="education-date">Expected March 2027</span>
+                <p className="education-note">
+                  Coursework completed; Master’s thesis remaining.
+                  <br />
+                  Current grade: 2.3
+                </p>
+              </li>
+              <li className="education-card">
+                <span className="education-label">
+                  BACHELOR’S DEGREE · COMPLETED
+                </span>
+                <h3>B.Tech. Electronics and Instrumentation Engineering</h3>
+                <p>SGSITS, Indore</p>
+                <span className="education-date">2019–2023</span>
+              </li>
+            </ul>
+          </article>
+          <article className="languages">
+            <p className="eyebrow">LANGUAGES</p>
+            <p>
+              <strong>German</strong> B1 · Preparing for B2
+            </p>
+            <p>
+              <strong>English</strong> C1 <span> / </span>
+              <strong>Hindi</strong> Native
+            </p>
+          </article>
+        </div>
+        <div className="engagement-section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">BEYOND THE DESK</p>
+              <h3>More than the technical work.</h3>
+            </div>
+            <p>Teaching, building together, and showing up.</p>
+          </div>
+          <div className="engagement-grid">
+            {[
+              {
+                icon: "∑",
+                label: "TEACHING",
+                title: "Making maths click",
+                text: "Math tutoring at Turito, translating difficult concepts into clear explanations.",
+              },
+              {
+                icon: "↗",
+                label: "ENTREPRENEURSHIP",
+                title: "From idea to pitch",
+                text: "Campus research and pitching with the four-person Zhhoop team, exploring shared student commutes.",
+              },
+              {
+                icon: "⚙",
+                label: "TEAM ENGINEERING",
+                title: "Building with GS Racers",
+                text: "Transmission design for Efficycle. Best Project Plan team award; reported All-India Rank 5.",
+              },
+              {
+                icon: "17",
+                label: "COMMUNITY",
+                title: "At home in a new team",
+                text: "Community work with Block 17 in Wismar, and badminton off the clock.",
+              },
+            ].map((item) => (
+              <article className="engagement-card" key={item.label}>
+                <span className="engagement-icon" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <p className="eyebrow">{item.label}</p>
+                <h4>{item.title}</h4>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
