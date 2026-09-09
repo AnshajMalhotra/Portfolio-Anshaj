@@ -7,21 +7,18 @@ export const projects = [
     subtitle: "Making RTLS hardware easier to evaluate.",
     category: "IoT / RTLS",
     filters: ["IoT / RTLS", "Data / Web"],
-    status: "Employer work · Public source",
+    status: "Employer work · Case study",
     tags: ["React", "TypeScript", "NocoDB"],
     problem:
       "Comparing gateways, anchors and tags requires device specifications to be organized in one searchable place.",
     contribution:
       "Developed a hardware catalog with search, filters and device detail views during my DynaWo internship. Connected the interface to NocoDB REST APIs.",
     implementation:
-      "React, TypeScript and Tailwind frontend; NocoDB records and linked metadata. The repository includes a Docker build and Nginx configuration.",
+      "React, TypeScript and Tailwind frontend; NocoDB records and linked metadata, with Docker and Nginx deployment configuration.",
     validation:
-      "Ran the public frontend locally with its four-device sample catalog and checked search, category filtering and device detail views. The screenshot shows that offline interface. The employer database and live deployment are not reproduced here.",
+      "Validated the frontend with a four-device offline sample catalog, checking search, category filtering and device detail views. The employer database, codebase and live deployment are not published here.",
     limitation:
-      "This case study describes employer work. The card diagram is a simplified architecture illustration. The screenshot uses repository sample records and an explicitly offline status label; it contains no employer database export.",
-    repo: github + "Locate-IQ",
-    evidence: github + "Locate-IQ/blob/main/src/App.tsx",
-    evidenceLabel: "Inspect catalog implementation",
+      "This case study describes employer work. The card diagram is a simplified architecture illustration. The screenshot uses offline sample records and contains no employer database export.",
   },
   {
     id: "rtls",

@@ -65,11 +65,11 @@ export default function ProjectDialog({ project, onClose }) {
               src="/locate-iq-sample.webp"
               width="1360"
               height="900"
-              alt="Locate-IQ running locally with four repository sample devices, search, technology filters and an offline database status"
+              alt="Locate-IQ interface with four offline sample devices, search and technology filters"
             />
           </a>
           <figcaption>
-            Actual interface · Repository sample catalog · No employer database
+            Interface preview · Offline sample catalog · No employer database
             connected. Open image to enlarge.
           </figcaption>
         </figure>

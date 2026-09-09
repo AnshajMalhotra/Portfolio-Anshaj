@@ -24,7 +24,7 @@ The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome
 - Contact transport requires HTTP and application success and aborts after 12 seconds.
 - `public/site` is the only public asset directory. Original legacy assets elsewhere under `public` are not included in the build.
 - The reviewed German CV is `public/site/resume-de.pdf`. No English translation is offered.
-- Locate-IQ's screenshot shows its public frontend running offline with repository sample records. Its connection label was clarified for the screenshot. No employer database was used.
+- Locate-IQ is presented only as an employer-work case study with an offline sample interface. No source link, employer code or employer database is published.
 - Automotive chart values come from the repository's stored synthetic sample, also available as `quality-sample.json`. They are not live factory results.
 - Private attachments, source inspection checkouts and local review artifacts belong in ignored `.local-review`, never in public assets.
 
