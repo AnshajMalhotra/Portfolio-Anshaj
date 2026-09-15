@@ -18,9 +18,9 @@ try {
   assert.equal(await page.locator(".more-card").count(), 6);
   await page.locator(".hero-portrait img").evaluate((img) => img.decode());
   const desktopPortrait = await page.locator(".hero-portrait img").boundingBox();
-  assert.equal(Math.round(desktopPortrait.width), 170);
-  assert.equal(Math.round(desktopPortrait.height), 170);
-  assert.equal(await page.locator(".connectivity-backdrop svg").count(), 2);
+  assert.equal(Math.round(desktopPortrait.width), 250);
+  assert.equal(Math.round(desktopPortrait.height), 250);
+  assert.equal(await page.locator(".connectivity-backdrop svg").count(), 1);
   const broken = await page
     .locator('a[href^="#"]')
     .evaluateAll((links) =>
@@ -70,8 +70,8 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(base);
   const mobilePortrait = await page.locator(".hero-portrait img").boundingBox();
-  assert.equal(Math.round(mobilePortrait.width), 130);
-  assert.equal(Math.round(mobilePortrait.height), 130);
+  assert.equal(Math.round(mobilePortrait.width), 190);
+  assert.equal(Math.round(mobilePortrait.height), 190);
   await page.getByRole("button", { name: "Menu" }).click();
   await page
     .getByRole("navigation", { name: "Main navigation" })
