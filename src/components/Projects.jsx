@@ -1,146 +1,169 @@
 import { useState } from "react";
 import { projects, secondaryProjects } from "../data/projects";
-import ProjectVisual from "./ProjectVisual";
 import ProjectDialog from "./ProjectDialog";
-export default function Projects() {
-  const [filter, setFilter] = useState("All work");
-  const [active, setActive] = useState(null);
-  const visible = projects.filter(
-    (p) => filter === "All work" || p.filters.includes(filter),
-  );
-  const secondary = secondaryProjects.filter(
-    (p) => filter === "All work" || p.category === filter,
-  );
-  return (
-    <section id="projects" className="section shell">
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">01 / SELECTED WORK</p>
-          <h2>Engineering, made tangible.</h2>
+
+function FeaturedVisual({ project }) {
+  if (project.id === "locate")
+    return (
+      <figure className="feature-media locate-media">
+        <img
+          src="/locate-iq-sample.webp"
+          alt="Locate-IQ interface preview with offline sample devices"
+          width="1360"
+          height="900"
+          loading="lazy"
+        />
+        <figcaption>OFFLINE SAMPLE INTERFACE · EMPLOYER WORK</figcaption>
+      </figure>
+    );
+  if (project.id === "quality")
+    return (
+      <figure className="feature-media quality-media">
+        <div className="quality-dashboard">
+          <span className="dashboard-label">
+            AUTOMOTIVE QUALITY / SYNTHETIC SAMPLE
+          </span>
+          <strong>25,000</strong>
+          <span>MEASUREMENTS ACROSS 3,572 VEHICLES</span>
+          <div>
+            <p>
+              <b>98.01%</b>
+              <span>Measurement pass rate</span>
+            </p>
+            <p>
+              <b>86.93%</b>
+              <span>Vehicle first-pass yield</span>
+            </p>
+          </div>
+          <div className="dashboard-bars">
+            <i style={{ width: "98.01%" }} />
+            <i style={{ width: "86.93%" }} />
+          </div>
+          <small>Stored sample output · Not a measured factory trend</small>
         </div>
-        <p>
-          A closer look at the problem,
+        <figcaption>SYNTHETIC DATA · PUBLIC PROJECT SAMPLE</figcaption>
+      </figure>
+    );
+  return (
+    <figure className="feature-media rtls-media">
+      <div className="rtls-graphic" aria-hidden="true">
+        <span>BLE gateways</span>
+        <i />
+        <span>MQTT / Node-RED</span>
+        <i />
+        <span>NDJSON output</span>
+        <i />
+        <span>Trajectory comparison</span>
+      </div>
+      <figcaption>EXPLANATORY PIPELINE · PRIVATE EMPLOYER DATA</figcaption>
+    </figure>
+  );
+}
+
+export default function Projects() {
+  const [active, setActive] = useState(null);
+  return (
+    <section id="projects" className="section shell work-section">
+      <div className="section-intro">
+        <p className="eyebrow">01 / SELECTED WORK</p>
+        <h2>
+          Selected
           <br />
-          the implementation, and the evidence.
+          <em>engineering work.</em>
+        </h2>
+        <p>
+          A few problems I have worked through, from device data and interfaces
+          to embedded prototypes.
         </p>
       </div>
-      <div className="project-toolbar">
-        <div className="filters" role="group" aria-label="Filter projects">
-          {[
-            "All work",
-            "IoT / RTLS",
-            "Embedded / Test",
-            "Data / Web",
-            "Product / Design",
-          ].map((label) => (
-            <button
-              key={label}
-              aria-pressed={filter === label}
-              onClick={() => setFilter(label)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-        <span className="results-count" aria-live="polite">
-          {visible.length + secondary.length} projects
-        </span>
-      </div>
-      <div className="project-grid">
-        {visible.map((project) => (
-          <article className="project-card" key={project.id}>
-            <ProjectVisual id={project.id} />
-            <div className="project-card-body">
-              <p className="project-status">{project.status}</p>
-              <h3>{project.title}</h3>
-              <p>{project.subtitle}</p>
-              <div className="tags">
-                {project.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
+      <div className="featured-list">
+        {projects.map((project) => (
+          <article className="featured-project" key={project.id}>
+            <div className="featured-copy">
+              <span className="project-index">
+                {project.number} / {project.category}
+              </span>
+              <div>
+                <p className="project-status">
+                  {project.status.replace("Â", "").replace("â€™", "’")}
+                </p>
+                <h3>{project.title}</h3>
+                <p className="featured-summary">
+                  {project.subtitle} {project.contribution}
+                </p>
+                <div className="project-tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
               </div>
-              <div className="project-actions">
-                <button
-                  className="text-link"
-                  aria-label={"Read " + project.title + " case study"}
-                  onClick={() => setActive(project)}
-                >
-                  Read case study <span aria-hidden="true">↗</span>
+              <div className="featured-actions">
+                <button type="button" onClick={() => setActive(project)}>
+                  Explore case study <span aria-hidden="true">↗</span>
                 </button>
                 {project.repo && (
-                  <a
-                    href={project.repo}
-                    aria-label={"View " + project.title + " source"}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    View source ↗
+                  <a href={project.repo} target="_blank" rel="noreferrer">
+                    Source ↗
                   </a>
                 )}
               </div>
             </div>
+            <FeaturedVisual project={project} />
           </article>
         ))}
       </div>
-      {secondary.length > 0 && (
-        <div className="secondary-projects">
-          <div className="collection-heading">
-            <div>
-              <p className="eyebrow">MORE OF MY WORK</p>
-              <h3>From circuit boards to campus ideas.</h3>
-            </div>
-            <p>Projects, prototypes and learning along the way.</p>
-          </div>
-          <div>
-            {secondary.map((project) => (
-              <article className="small-project-card" key={project.title}>
-                <figure className="small-project-image">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.imageAlt}
-                      width="640"
-                      height="400"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="rtos-art" aria-hidden="true">
-                      <span>Task A</span>
-                      <b>↔</b>
-                      <span>Event bits</span>
-                      <b>↔</b>
-                      <span>Task B</span>
-                    </div>
-                  )}
-                  <figcaption>{project.imageCaption}</figcaption>
-                </figure>
-                <div className="small-project-body">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  {project.repo && (
-                    <a
-                      className="text-link"
-                      href={project.repo}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {project.actionLabel || "View source"} ↗
-                    </a>
-                  )}
-                  {project.details && (
-                    <details className="project-notes">
-                      <summary>
-                        Read project story <span aria-hidden="true">↗</span>
-                      </summary>
-                      <p>{project.details}</p>
-                    </details>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
+      <div className="more-work">
+        <div className="more-work-title">
+          <p className="eyebrow">MORE PROJECTS</p>
+          <h2>
+            Ideas, prototypes
+            <br />
+            and practice.
+          </h2>
         </div>
-      )}
+        <div className="more-grid">
+          {secondaryProjects.map((project) => (
+            <article className="more-card" key={project.title}>
+              <figure>
+                {project.image ? (
+                  <img
+                    src={
+                      project.title === "CIFAR-10 image classifier"
+                        ? "/projects/cifar.webp"
+                        : project.image
+                    }
+                    alt={project.imageAlt}
+                    width="640"
+                    height="400"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="rtos-art" aria-hidden="true">
+                    Task A <span>↔</span> Event bits <span>↔</span> Task B
+                  </div>
+                )}
+                <figcaption>{project.imageCaption}</figcaption>
+              </figure>
+              <div>
+                <span className="project-index">{project.category}</span>
+                <h3>{project.title.replace("Â", "").replace("â€™", "’")}</h3>
+                <p>{project.description}</p>
+                {project.repo && (
+                  <a href={project.repo} target="_blank" rel="noreferrer">
+                    {project.actionLabel || "View project"} ↗
+                  </a>
+                )}
+                {project.details && (
+                  <details>
+                    <summary>Read project story ↗</summary>
+                    <p>{project.details}</p>
+                  </details>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
       {active && (
         <ProjectDialog project={active} onClose={() => setActive(null)} />
       )}

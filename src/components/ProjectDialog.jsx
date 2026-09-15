@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import ProjectVisual from "./ProjectVisual";
 
 export default function ProjectDialog({ project, onClose }) {
   const dialog = useRef(null);
@@ -73,8 +72,36 @@ export default function ProjectDialog({ project, onClose }) {
             connected. Open image to enlarge.
           </figcaption>
         </figure>
+      ) : project.id === "quality" ? (
+        <figure className="source-screenshot">
+          <img
+            src="/projects/quality-source.png"
+            width="1600"
+            height="1000"
+            alt="Measurement pass rate chart from the synthetic automotive quality sample"
+          />
+          <figcaption>
+            Synthetic data chart from the public project repository.
+          </figcaption>
+        </figure>
       ) : (
-        <ProjectVisual id={project.id} />
+        <figure className="source-screenshot">
+          <div
+            className="rtls-graphic"
+            aria-label="BLE gateway observations flow through MQTT and Node-RED to NDJSON output and trajectory comparison"
+          >
+            <span>BLE gateways</span>
+            <i />
+            <span>MQTT / Node-RED</span>
+            <i />
+            <span>NDJSON output</span>
+            <i />
+            <span>Trajectory comparison</span>
+          </div>
+          <figcaption>
+            Explanatory pipeline. Employer code and data remain private.
+          </figcaption>
+        </figure>
       )}
       <div className="case-study-content">
         {[

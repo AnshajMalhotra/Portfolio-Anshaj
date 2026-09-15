@@ -4,6 +4,8 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import AboutMe from "./components/AboutMe";
 import Contacts from "./components/Contacts";
+import ConnectivityBackdrop from "./components/ConnectivityBackdrop";
+
 export default function App() {
   return (
     <>
@@ -11,6 +13,7 @@ export default function App() {
         Skip to content
       </a>
       <Header />
+      <ConnectivityBackdrop />
       <main id="main" tabIndex={-1}>
         <HeroSection />
         <Projects />
@@ -19,11 +22,11 @@ export default function App() {
         <Contacts />
       </main>
       <footer className="site-footer shell">
-        <a className="wordmark" href="#home">
-          AM<span>.</span>
+        <a className="brand" href="#home">
+          AM<span>✳</span>
         </a>
-        <span>Built with curiosity. Grounded in engineering.</span>
-        <a href="https://github.com/AnshajMalhotra">GitHub ↗</a>
+        <span>© {new Date().getFullYear()} Anshaj Malhotra</span>
+        <a href="#home">Back to top ↑</a>
       </footer>
     </>
   );
