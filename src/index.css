@@ -28,27 +28,17 @@ body {
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  color: #f4f0e7;
-  opacity: 0.16;
+  opacity: 0.032;
   pointer-events: none;
-  animation: connectivity-breathe 12s ease-in-out infinite;
 }
 .connectivity-backdrop svg {
   width: 100%;
   height: 100%;
 }
-.connectivity-mobile {
-  display: none;
-}
 main,
 .site-footer {
   position: relative;
   z-index: 1;
-}
-@keyframes connectivity-breathe {
-  50% {
-    opacity: 0.1;
-  }
 }
 button,
 input,
@@ -304,8 +294,17 @@ p {
 }
 .hero-portrait {
   width: 100%;
-  max-width: 170px;
+  max-width: 250px;
   justify-self: end;
+  position: relative;
+}
+.hero-portrait::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 70%);
+  filter: blur(6px);
 }
 .hero-portrait img {
   width: 100%;
@@ -313,26 +312,37 @@ p {
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center 22%;
-  border: 1px solid #78906e;
-  border-radius: 16px;
-  box-shadow: 0 18px 50px #0008;
-  filter: saturate(0.85);
+  filter: saturate(0.9) contrast(1.05);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, #000 62%, transparent 94%);
+  mask-image: radial-gradient(circle at 50% 40%, #000 62%, transparent 94%);
 }
 .hero-portrait figcaption {
-  display: grid;
-  gap: 2px;
-  padding: 10px 2px 0;
-  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin: -26px auto 0;
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px 7px;
+  max-width: 92vw;
+  padding: 11px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  box-shadow: 0 16px 34px #0009;
   color: #f1f4e9;
-  font-size: 11px;
-  letter-spacing: -0.025em;
+  font-size: 12px;
+  letter-spacing: -0.02em;
 }
 .hero-portrait figcaption strong {
   font-weight: 700;
+  font-size: 13px;
 }
 .hero-portrait figcaption span {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 10px;
 }
 .hero-bottom {
   display: flex;
@@ -645,14 +655,17 @@ p {
   color: var(--accent);
 }
 .experience-list {
-  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 16px;
 }
 .experience-row {
   display: grid;
   grid-template-columns: 15% 27% 1fr;
   gap: 25px;
-  border-bottom: 1px solid var(--line);
-  padding: 35px 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 35px;
 }
 .experience-date {
   color: var(--accent);
@@ -690,7 +703,7 @@ p {
   line-height: 1.55;
 }
 .experience-details li:before {
-  content: "â†—";
+  content: "→";
   color: var(--accent);
   margin-right: 9px;
 }
@@ -720,7 +733,10 @@ p {
   margin-top: 34px;
 }
 .about-facts {
-  border-top: 1px solid var(--line);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 0 30px;
 }
 .about-facts > div {
   display: grid;
@@ -728,6 +744,9 @@ p {
   gap: 22px;
   border-bottom: 1px solid var(--line);
   padding: 25px 0;
+}
+.about-facts > div:last-child {
+  border-bottom: none;
 }
 .about-facts span {
   color: var(--accent);
@@ -755,7 +774,10 @@ p {
   margin-top: 12px;
 }
 .capability-list {
-  border-top: 1px solid var(--line);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 0 30px;
 }
 .capability-row {
   display: grid;
@@ -764,6 +786,9 @@ p {
   align-items: center;
   border-bottom: 1px solid var(--line);
   padding: 24px 0;
+}
+.capability-row:last-child {
+  border-bottom: none;
 }
 .capability-row span {
   font-size: 10px;
@@ -1039,15 +1064,6 @@ p {
   }
 }
 @media (max-width: 720px) {
-  .connectivity-backdrop {
-    opacity: 0.11;
-  }
-  .connectivity-desktop {
-    display: none;
-  }
-  .connectivity-mobile {
-    display: block;
-  }
   .shell {
     width: calc(100% - 38px);
   }
@@ -1118,7 +1134,7 @@ p {
     gap: 20px;
   }
   .hero-portrait {
-    max-width: 130px;
+    max-width: 190px;
     align-self: center;
   }
   .hero-bottom {
@@ -1177,6 +1193,7 @@ p {
   .experience-row {
     grid-template-columns: 1fr 2fr;
     gap: 10px;
+    padding: 24px;
   }
   .experience-details {
     grid-column: 1/-1;
@@ -1252,9 +1269,6 @@ p {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .connectivity-backdrop {
-    animation: none;
-  }
   html {
     scroll-behavior: auto;
   }
