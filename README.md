@@ -13,19 +13,19 @@ npm run build
 npm run preview
 ```
 
-The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome browser. Install Playwright in your test environment or expose an existing installation through `NODE_PATH`. Set `PREVIEW_URL` to the server to test, then run `node tests/browser.mjs`. It mocks every contact submission; it never sends the test messages to the live endpoint.
+The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome browser. Set `PREVIEW_URL` to the server to test, then run `node tests/browser.mjs`. Automated checks never send email.
 
 ## Content and assets
 
 - Project claims and source links: `src/data/projects.js`.
-- Case-study dialogs use native modal dialogs, focus restoration, Escape handling and explicit Tab boundaries.
-- Both degrees are presented as education cards. Six compact image/illustration cards preserve PCB, FreeRTOS, CIFAR-10, Zhhoop, Cineplex and Efficycle work under the featured case studies.
-- A single contact Spline scene is dynamically imported only when visible on desktop, with pause/resume, offscreen/background pausing, touch opt-in and a reduced-motion still view. Its optional runtime is substantially larger than the main page bundle; it is not part of the initial page load.
-- Contact transport requires HTTP and application success and aborts after 12 seconds.
+- Case studies have shareable `#project/locate`, `#project/rtls` and `#project/quality` links, with native modal dialogs, focus restoration, Escape handling and Tab boundaries.
+- Three featured projects precede professional experience; six additional project cards follow it. Education and language details are in About.
+- The circuit background is a static SVG; no 3D runtime is loaded.
+- Contact opens an encoded email draft in the visitor's mail app. The visitor reviews and sends it there. The previous Google Apps Script endpoint returned HTTP 403 during a delivery check; the site no longer uses it or claims server receipt.
 - `public/site` is the only public asset directory. Original legacy assets elsewhere under `public` are not included in the build.
-- The reviewed German CV is `public/site/resume-de.pdf`. No English translation is offered.
+- German and English CVs are `public/site/resume-de.pdf` and `public/site/resume-en.pdf`. The English version translates the German source without adding dates or achievements.
 - Locate-IQ is presented only as an employer-work case study with an offline sample interface. No source link, employer code or employer database is published.
-- Automotive chart values come from the repository's stored synthetic sample, also available as `quality-sample.json`. They are not live factory results.
+- Automotive chart values come from the repository's stored synthetic sample, also available as `quality-sample.json`. The interactive explorer filters sample periods and compares defect rates with a visitor-selected review threshold; it does not change source measurements or represent a factory system.
 - Private attachments, source inspection checkouts and local review artifacts belong in ignored `.local-review`, never in public assets.
 
 ## Deployment
@@ -34,6 +34,6 @@ Keep the existing `anshaj` Vercel project and React/Vite setup. Use a reviewed n
 
 ## Verification scope
 
-The Phase 1 checks cover desktop/tablet/mobile layouts down to 320 px, a 200% content zoom check, reduced motion, keyboard navigation, filters, dialogs, the CV payload, metadata and mocked contact success/failure/timeout states. These checks do not prove delivery through the live Google Apps Script endpoint.
+Checks cover desktop/tablet/mobile layouts down to 320 px, reduced motion, navigation, shareable case studies, interactive sample calculations, both CV payloads and contact-draft encoding. Email delivery depends on the visitor sending the draft through their mail provider.
 
 The 10-project demonstration backlog and CV-engine/LinkedIn changes are separate phases.

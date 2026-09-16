@@ -1,46 +1,30 @@
-import { useState, useRef, useEffect } from "react";
-import { sendContact } from "../lib/contact";
+import { useState } from "react";
+import { createContactDraft } from "../lib/contact";
 export default function Contacts() {
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
-  const submitting = useRef(false);
-  const mounted = useRef(true);
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
+  const [error, setError] = useState("");
   function change(event) {
     setFields({ ...fields, [event.target.name]: event.target.value });
-    if (status !== "sending") setStatus("idle");
+    setStatus("idle");
+    setError("");
   }
-  async function submit(event) {
+  function submit(event) {
     event.preventDefault();
-    if (submitting.current) return;
-    if (Object.values(fields).some((value) => !value.trim())) {
-      setStatus("invalid");
-      return;
-    }
-    submitting.current = true;
-    setStatus("sending");
     try {
-      await sendContact(fields);
-      if (mounted.current) {
-        setStatus("success");
-        setFields({ name: "", email: "", message: "" });
-      }
-    } catch (error) {
-      if (mounted.current)
-        setStatus(error.name === "AbortError" ? "timeout" : "error");
-    } finally {
-      submitting.current = false;
+      const draft = createContactDraft(fields);
+      window.location.href = draft;
+      setStatus("draft");
+      setError("");
+    } catch (draftError) {
+      setError(draftError.message);
+      setStatus("invalid");
     }
   }
   return (
     <section id="contact" className="section shell contact-section">
       <div className="contact-copy">
-        <p className="eyebrow">05 / LET’S CONNECT</p>
+        <p className="eyebrow">04 / LET’S CONNECT</p>
         <h2>
           Have a device,
           <br />
@@ -74,11 +58,7 @@ export default function Contacts() {
           </a>
         </div>
       </div>
-      <form
-        className="contact-form"
-        onSubmit={submit}
-        aria-busy={status === "sending"}
-      >
+      <form className="contact-form" onSubmit={submit}>
         <h3>Start a conversation</h3>
         <p>A role, a thesis topic, or a technical question.</p>
         <label htmlFor="contact-name">Your name</label>
@@ -90,7 +70,6 @@ export default function Contacts() {
           maxLength={120}
           value={fields.name}
           onChange={change}
-          disabled={status === "sending"}
           placeholder="Name"
         />
         <label htmlFor="contact-email">Email address</label>
@@ -103,7 +82,6 @@ export default function Contacts() {
           maxLength={254}
           value={fields.email}
           onChange={change}
-          disabled={status === "sending"}
           placeholder="you@company.com"
         />
         <label htmlFor="contact-message">What would you like to work on?</label>
@@ -115,19 +93,16 @@ export default function Contacts() {
           rows={5}
           value={fields.message}
           onChange={change}
-          disabled={status === "sending"}
           placeholder="Tell me a little about the opportunity…"
         />
         <p className="form-note">
-          Your message is sent to Anshaj through Google Apps Script. You can
-          also contact me directly by email.
+          Opens your email app. Review and send the draft there.
         </p>
         <button
           type="submit"
           className="button primary"
-          disabled={status === "sending"}
         >
-          {status === "sending" ? "Sending…" : "Send message ↗"}
+          Open email draft ↗
         </button>
         <p
           className={"form-status " + status}
@@ -135,15 +110,9 @@ export default function Contacts() {
           aria-live="polite"
           aria-atomic="true"
         >
-          {status === "success"
-            ? "Message received. Thank you for getting in touch."
-            : status === "error"
-              ? "Receipt could not be confirmed. Your message is still here; please email me directly."
-              : status === "timeout"
-                ? "The request timed out; delivery is unconfirmed. Please email me directly."
-                : status === "invalid"
-                  ? "Please complete each field with more than spaces."
-                  : ""}
+          {status === "draft"
+            ? "Your draft is ready. Send it in your email app. If no app opened, use the email address above; your message is still here."
+            : error}
         </p>
       </form>
     </section>

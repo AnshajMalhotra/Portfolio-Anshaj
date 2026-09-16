@@ -1,0 +1,78 @@
+.featured-actions > a[data-project-trigger] { color: var(--accent); font-weight: 700; }
+.additional-projects.more-work { margin-top: 0; }
+.locate-sample { width: 100%; padding: 24px; background: #edf1e8; color: #243022; border: 1px solid #cad4c3; border-radius: 14px; }
+.locate-sample.is-compact { width: min(520px, 87%); box-shadow: 0 24px 55px #0005; }
+.locate-sample-header, .demo-heading { margin-bottom: 20px; }
+.locate-sample-header { display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+.sample-wordmark { font-size: 24px; font-weight: 800; letter-spacing: -.05em; }
+.sample-wordmark > span { color: #4b662c; }
+.locate-sample-header p { font-size: 12px; color: #52634b; }
+.sample-badge { display: inline-block; border: 1px solid currentColor; border-radius: 100px; padding: 5px 9px; font-size: 11px; font-weight: 650; line-height: 1.4; }
+.locate-sample .sample-badge { color: #486038; }
+.sample-device-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.sample-device { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; text-align: left; border: 1px solid #c8d3bf; border-radius: 9px; background: #fafcf8; color: #263522; padding: 15px; }
+button.sample-device { cursor: pointer; }
+button.sample-device:hover, button.sample-device[aria-pressed="true"] { border-color: #486535; background: #dfe9d5; }
+.sample-device-symbol { color: #536f3f; font-size: 26px; line-height: 1.2; margin-bottom: 10px; }
+.sample-device-name { font-size: 14px; font-weight: 750; }
+.sample-device-meta, .sample-device-open { font-size: 12px; color: #506045; margin-top: 4px; }
+.sample-device-open { margin-top: 10px; text-decoration: underline; text-underline-offset: 3px; }
+.sample-caption, .sample-count { font-size: 12px; color: #52634b; margin-top: 13px; }
+.sample-detail { background: #dce7d2; padding: 16px; margin-top: 12px; border-radius: 8px; font-size: 14px; }
+.sample-detail span { display: block; font-size: 12px; margin-top: 6px; }
+.sample-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 20px 0; }
+.sample-controls label { display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 650; min-width: 0; }
+.sample-controls input, .sample-controls select { width: 100%; min-width: 0; min-height: 42px; border: 1px solid #a7b89a; border-radius: 7px; padding: 9px; font: inherit; color: #23301e; background: #f6f9f1; }
+.sample-controls input[type="range"] { padding: 0; accent-color: #bfdd8c; border: 0; background: transparent; }
+.demo-note { font-size: 13px; line-height: 1.65; }
+.quality-demo { padding: 26px; margin: 28px 0; background: #232d20; border: 1px solid #526047; border-radius: 14px; }
+.demo-heading .sample-badge { color: var(--accent); margin-bottom: 14px; }
+.demo-heading h3 { font-size: 22px; line-height: 1.3; margin-bottom: 8px; }
+.demo-heading p, .quality-review-summary, .demo-method { font-size: 13px; color: #d0dbca; line-height: 1.65; }
+.demo-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 26px 0; }
+.demo-kpis > div { min-width: 0; padding: 14px; background: #172014; border-radius: 8px; }
+.demo-kpis strong { display: block; font-size: clamp(22px, 3vw, 32px); letter-spacing: -.05em; color: #e6f6cd; }
+.demo-kpis span { font-size: 12px; color: #c0ceb6; display: block; line-height: 1.5; }
+.quality-chart { display: grid; gap: 14px; margin: 24px 0; }
+.quality-chart-heading { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: #d0dbca; }
+.quality-chart-row { display: grid; grid-template-columns: 35px minmax(40px, 1fr) 50px 102px; align-items: center; gap: 10px; font-size: 12px; }
+.quality-chart-track { height: 12px; background: #10190e; border-radius: 4px; position: relative; }
+.quality-chart-track > span { display: block; height: 100%; background: #a4c77b; border-radius: 4px; }
+.needs-review .quality-chart-track > span { background: #ecc488; }
+.quality-chart-track > i { position: absolute; width: 1px; background: #fff; height: 18px; top: -3px; }
+.quality-chart-row > strong { text-align: right; }
+.quality-review-label { color: #c0ceb6; font-size: 11px; }
+.needs-review .quality-review-label { color: #ecc488; }
+.demo-method { border-top: 1px solid #536348; margin-top: 22px; padding-top: 16px; }
+.demo-method summary { cursor: pointer; color: #e5f1d7; }
+.demo-method p { margin-top: 12px; }
+.demo-method a { display: inline-block; color: var(--accent); margin-top: 12px; text-decoration: underline; }
+.project-evidence { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
+.project-evidence h3 { font-size: 17px; margin-bottom: 9px; }
+.project-evidence > p { font-size: 13px; color: #c2ceb9; margin-bottom: 18px; }
+.evidence-flow { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 0; }
+.evidence-flow li { background: #263220; border: 1px solid #526344; border-radius: 9px; padding: 15px; min-width: 0; }
+.evidence-flow strong { display: block; font-size: 13px; color: var(--accent); margin-bottom: 6px; }
+.evidence-flow span { display: block; font-size: 12px; line-height: 1.6; color: #c6d1bd; }
+.evidence-checks { margin-top: 18px; padding-left: 18px; font-size: 13px; color: #ccd6c4; }
+.evidence-checks li { margin-bottom: 8px; }
+.project-dialog .source-screenshot figcaption { font-size: 12px; }
+@media (max-width: 600px) {
+  .locate-sample { padding: 16px; }
+  .locate-sample.is-compact { padding: 16px; width: 90%; }
+  .locate-sample.is-compact .sample-device { padding: 10px; }
+  .locate-sample.is-compact .sample-device-symbol { display: none; }
+  .sample-device-name { font-size: 13px; }
+  .sample-wordmark { font-size: 22px; }
+  .locate-sample-header { gap: 8px; margin-bottom: 14px; }
+  .sample-badge { font-size: 10px; }
+  .sample-controls { grid-template-columns: 1fr; }
+  .quality-demo { padding: 16px; }
+  .demo-kpis { gap: 7px; }
+  .demo-kpis > div { padding: 10px 7px; }
+  .demo-kpis strong { font-size: 22px; }
+  .demo-kpis span { font-size: 11px; }
+  .quality-chart-row { grid-template-columns: 30px minmax(35px, 1fr) 45px; gap: 7px; }
+  .quality-review-label { grid-column: 2 / 4; margin-top: -8px; }
+  .evidence-flow { grid-template-columns: 1fr; }
+}

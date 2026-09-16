@@ -18,7 +18,19 @@ export const projects = [
     validation:
       "Validated the frontend with a four-device offline sample catalog, checking search, category filtering and device detail views. The employer database, codebase and live deployment are not published here.",
     limitation:
-      "This case study describes employer work. The card diagram is a simplified architecture illustration. The screenshot uses offline sample records and contains no employer database export.",
+      "This case study describes employer work. The interactive catalog is an original portfolio reconstruction with four generic sample records. It demonstrates a workflow, not the employer application or actual device specifications.",
+    evidenceIntro:
+      "The architecture below summarizes the described employer work. The sample interface above is a separate, browser-only illustration.",
+    architecture: [
+      ["Organize", "Device categories and linked metadata provide a consistent basis for comparison."],
+      ["Connect", "A React / TypeScript interface reads catalog records through NocoDB REST APIs."],
+      ["Evaluate", "Search, category filters and detail views help narrow the hardware options."],
+    ],
+    reviewChecks: [
+      "In this reconstruction, search for BLE: the gateway and BLE tag remain visible.",
+      "Combine BLE search with the Tag category, then open the remaining sample device.",
+      "Try a search with no matches and clear it to recover the complete sample catalog.",
+    ],
   },
   {
     id: "rtls",
@@ -39,6 +51,18 @@ export const projects = [
       "The output was structured localization-test data for comparison. No numerical accuracy improvement is claimed because an approved measurement baseline is unavailable.",
     limitation:
       "Employer code and datasets remain private. The flow shown here is an explanatory reconstruction, with no live telemetry or public demo.",
+    evidenceIntro:
+      "A reconstruction of the processing stages, based on the described internship work. This review checklist explains the validation questions; it is not a published test report.",
+    architecture: [
+      ["Collect observations", "BLE gateways publish observations into an MQTT / Node-RED processing flow."],
+      ["Prepare comparable data", "Filtering and timestamp processing produce structured NDJSON observations."],
+      ["Compare trajectories", "Localization behavior is reviewed alongside LiDAR-SLAM reference data."],
+    ],
+    reviewChecks: [
+      "Are gateway and tag identities retained so observations remain traceable?",
+      "Are timestamps aligned before comparing estimated and reference trajectories?",
+      "Are missing observations and filtering assumptions documented before interpreting results?",
+    ],
   },
   {
     id: "quality",
@@ -59,6 +83,18 @@ export const projects = [
       "The repository sample summarizes 25,000 synthetic measurements across 3,572 vehicles: 498 out-of-spec measurements, 98.01% measurement pass rate and 86.93% vehicle first-pass yield. The chart displays that stored sample, not a live system.",
     limitation:
       "Independent project, not commissioned or endorsed by Mercedes-Benz or another manufacturer. The generator models improving variation intentionally; the trend is not a measured factory improvement. Full API/database deployment is not verified in this preview.",
+    evidenceIntro:
+      "The public repository documents the ingestion and analysis design. This explorer calculates directly from its stored weekly sample and does not connect to a factory or running backend.",
+    architecture: [
+      ["Generate & validate", "Python produces synthetic measurements; Node-RED validates incoming records."],
+      ["Ingest & summarize", "FastAPI and PostgreSQL separate measurement events from vehicle-level summaries."],
+      ["Inspect the result", "Count out-of-spec events and compare measurement pass rate with vehicle first-pass yield."],
+    ],
+    reviewChecks: [
+      "All seven weeks total 25,000 measurements and 498 out-of-spec events; the calculated pass rate rounds to 98.01%.",
+      "Selecting one week recalculates from that week's counts, without averaging percentages.",
+      "Vehicle first-pass yield is reported only for the full stored sample because per-week vehicle records are unavailable.",
+    ],
     repo:
       github + "Automotive-Quality-Intelligence-Measurement-Analytics-Platform",
     evidence: "/quality-sample.json",

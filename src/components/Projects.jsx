@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { projects, secondaryProjects } from "../data/projects";
 import ProjectDialog from "./ProjectDialog";
+import LocateSample from "./LocateSample";
+import "./project-evidence.css";
 
 function FeaturedVisual({ project }) {
   if (project.id === "locate")
     return (
       <figure className="feature-media locate-media">
-        <img
-          src="/locate-iq-sample.webp"
-          alt="Locate-IQ interface preview with offline sample devices"
-          width="1360"
-          height="900"
-          loading="lazy"
-        />
-        <figcaption>OFFLINE SAMPLE INTERFACE · EMPLOYER WORK</figcaption>
+        <LocateSample compact />
+        <figcaption>ILLUSTRATIVE RECONSTRUCTION · SAMPLE DEVICES</figcaption>
       </figure>
     );
   if (project.id === "quality")
@@ -61,7 +57,19 @@ function FeaturedVisual({ project }) {
 }
 
 export default function Projects() {
-  const [active, setActive] = useState(null);
+  const [activeId, setActiveId] = useState(() => window.location.hash.slice(9));
+  useEffect(() => {
+    const syncProject = () => {
+      setActiveId(
+        window.location.hash.startsWith("#project/")
+          ? window.location.hash.slice(9)
+          : null,
+      );
+    };
+    window.addEventListener("hashchange", syncProject);
+    return () => window.removeEventListener("hashchange", syncProject);
+  }, []);
+  const active = projects.find((project) => project.id === activeId);
   return (
     <section id="projects" className="section shell work-section">
       <div className="section-intro">
@@ -98,9 +106,9 @@ export default function Projects() {
                 </div>
               </div>
               <div className="featured-actions">
-                <button type="button" onClick={() => setActive(project)}>
+                <a href={`#project/${project.id}`} data-project-trigger={project.id}>
                   Explore case study <span aria-hidden="true">↗</span>
-                </button>
+                </a>
                 {project.repo && (
                   <a href={project.repo} target="_blank" rel="noreferrer">
                     Source ↗
@@ -112,7 +120,20 @@ export default function Projects() {
           </article>
         ))}
       </div>
-      <div className="more-work">
+      {active && (
+        <ProjectDialog
+          key={active.id}
+          project={active}
+          onClose={() => { window.location.hash = "projects"; }}
+        />
+      )}
+    </section>
+  );
+}
+
+export function AdditionalProjects() {
+  return (
+      <section id="additional-projects" className="section shell more-work additional-projects">
         <div className="more-work-title">
           <p className="eyebrow">MORE PROJECTS</p>
           <h2>
@@ -163,10 +184,6 @@ export default function Projects() {
             </article>
           ))}
         </div>
-      </div>
-      {active && (
-        <ProjectDialog project={active} onClose={() => setActive(null)} />
-      )}
-    </section>
+      </section>
   );
 }

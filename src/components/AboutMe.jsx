@@ -36,6 +36,7 @@ export default function AboutMe() {
             <p>
               M.Eng. Electrical and Informational Technology at Hochschule
               Wismar. Coursework completed; Master’s thesis remaining.
+              Expected graduation: March 2027.
             </p>
           </div>
           <div>

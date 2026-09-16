@@ -13,29 +13,54 @@ const errors = [];
 page.on("pageerror", (error) => errors.push(error.message));
 try {
   await page.goto(base);
+  await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator("h1").count(), 1);
   assert.equal(await page.locator(".featured-project").count(), 3);
   assert.equal(await page.locator(".more-card").count(), 6);
   await page.locator(".hero-portrait img").evaluate((img) => img.decode());
   const desktopPortrait = await page.locator(".hero-portrait img").boundingBox();
-  assert.equal(Math.round(desktopPortrait.width), 250);
-  assert.equal(Math.round(desktopPortrait.height), 250);
+  assert.equal(Math.round(desktopPortrait.width), 280);
+  assert.equal(Math.round(desktopPortrait.height), 280);
   assert.equal(await page.locator(".connectivity-backdrop svg").count(), 1);
   const broken = await page
     .locator('a[href^="#"]')
     .evaluateAll((links) =>
       links
-        .filter((a) => !document.querySelector(a.getAttribute("href")))
+        .filter((a) => !a.hash.startsWith("#project/") && !document.getElementById(a.hash.slice(1)))
         .map((a) => a.outerHTML),
     );
   assert.deepEqual(broken, []);
   const trigger = page
-    .getByRole("button", { name: /Explore case study/ })
+    .getByRole("link", { name: /Explore case study/ })
     .first();
   await trigger.click();
+  await page.getByRole("dialog").waitFor({ state: "visible" });
   assert.equal(await page.getByRole("dialog").isVisible(), true);
+  assert.equal(new URL(page.url()).hash, "#project/locate");
   await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "detached" });
   assert.equal(await page.getByRole("dialog").count(), 0);
+  assert.equal(new URL(page.url()).hash, "#projects");
+  await page.goto(`${base}/#project/locate`);
+  await page.getByRole("dialog").waitFor({ state: "visible" });
+  await page.getByLabel("Search sample devices").fill("BLE");
+  assert.match(await page.getByRole("dialog").innerText(), /2 of 4 sample devices/i);
+  await page.getByRole("button", { name: "Close case study" }).click();
+  await page.getByRole("dialog").waitFor({ state: "detached" });
+  await page.goto(`${base}/#project/quality`);
+  await page.getByRole("dialog").waitFor({ state: "visible" });
+  await page.getByLabel("Measurement period").selectOption("2026-W31");
+  assert.match(await page.getByRole("dialog").innerText(), /3,689[\s\S]*177[\s\S]*95\.20%/);
+  await page.keyboard.press("Escape");
+  await page.getByRole("dialog").waitFor({ state: "detached" });
+  for (const language of ["en", "de"]) {
+    const cv = await page.request.get(`${base}/resume-${language}.pdf`);
+    assert.equal(cv.status(), 200);
+    assert.equal((await cv.body()).subarray(0, 5).toString(), "%PDF-");
+  }
+  const sectionOrder = await page.locator("main > section").evaluateAll((sections) => sections.map((section) => section.id));
+  assert.ok(sectionOrder.indexOf("experience") > sectionOrder.indexOf("projects"));
+  assert.ok(sectionOrder.indexOf("experience") < sectionOrder.indexOf("additional-projects"));
   assert.equal(
     await page.locator("form").evaluate((form) => form.checkValidity()),
     false,

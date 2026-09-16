@@ -4,34 +4,36 @@ export default function HeroSection() {
       <div className="hero-main">
         <div className="hero-copy">
           <p className="eyebrow">
-            <span className="status-dot" /> Karlsruhe, Germany · Open to
-            opportunities
+            <span className="status-dot" /> Anshaj Malhotra · Karlsruhe, Germany
           </p>
+          <p className="hero-role">IoT &amp; Embedded Systems Engineer</p>
           <h1>
             Engineering
             <br />
             <em>what connects.</em>
           </h1>
           <p className="hero-lead">
-            Hi, I’m <strong>Anshaj Malhotra.</strong> I connect devices, data
-            and applications — from BLE firmware and RTLS pipelines to
-            industrial web tools.
+            I connect devices, data and applications — from BLE firmware and
+            RTLS pipelines to industrial web tools.
           </p>
+          <p className="hero-availability">Seeking a Werkstudent role or a practical Master’s thesis.</p>
           <div className="hero-actions">
             <a className="pill-button" href="#projects">
               Explore my work <span aria-hidden="true">↗</span>
             </a>
-            <a className="quiet-link" href="/resume-de.pdf" download>
-              Download CV <span aria-hidden="true">↓</span>
-            </a>
+            <div className="cv-links" aria-label="Download curriculum vitae">
+              <span>Download CV</span>
+              <a className="quiet-link" href="/resume-en.pdf" download>English ↓</a>
+              <a className="quiet-link" href="/resume-de.pdf" download>Deutsch ↓</a>
+            </div>
           </div>
         </div>
         <figure className="hero-portrait">
           <img
             src="/portrait.webp"
             alt="Portrait of Anshaj Malhotra"
-            width="170"
-            height="170"
+            width="280"
+            height="280"
             fetchPriority="high"
           />
           <figcaption>
@@ -41,7 +43,7 @@ export default function HeroSection() {
         </figure>
       </div>
       <div className="hero-bottom">
-        <span>Working across hardware, software and the space between.</span>
+        <span>BLE &amp; firmware · IoT &amp; localization · Applications &amp; data</span>
         <a href="#projects">
           Scroll to discover <span aria-hidden="true">↓</span>
         </a>

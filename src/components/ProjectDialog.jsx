@@ -1,22 +1,27 @@
 import { useEffect, useRef } from "react";
+import LocateSample from "./LocateSample";
+import QualityDemo from "./QualityDemo";
 
 export default function ProjectDialog({ project, onClose }) {
   const dialog = useRef(null);
   useEffect(() => {
     const element = dialog.current;
-    const trigger = document.activeElement;
+    const trigger = document.activeElement === document.body
+      ? document.querySelector(`[data-project-trigger="${project.id}"]`)
+      : document.activeElement;
     const oldOverflow = document.body.style.overflow;
     element.showModal();
     document.body.style.overflow = "hidden";
     return () => {
       element.close();
       document.body.style.overflow = oldOverflow;
-      trigger?.focus();
+      trigger?.focus({ preventScroll: true });
     };
-  }, []);
+  }, [project.id]);
   function trapFocus(event) {
     if (event.key !== "Tab") return;
-    const items = [...dialog.current.querySelectorAll("button, a[href]")];
+    const items = [...dialog.current.querySelectorAll("button, a[href], input, select, textarea, summary, [tabindex]:not([tabindex='-1'])")]
+      .filter((item) => !item.disabled && item.getClientRects().length > 0);
     const first = items[0],
       last = items[items.length - 1];
     if (event.shiftKey && document.activeElement === first) {
@@ -54,36 +59,13 @@ export default function ProjectDialog({ project, onClose }) {
       <p className="dialog-subtitle">{project.subtitle}</p>
       {project.id === "locate" ? (
         <figure className="source-screenshot">
-          <a
-            href="/locate-iq-sample.webp"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open full Locate-IQ sample screenshot"
-          >
-            <img
-              src="/locate-iq-sample.webp"
-              width="1360"
-              height="900"
-              alt="Locate-IQ interface with four offline sample devices, search and technology filters"
-            />
-          </a>
+          <LocateSample />
           <figcaption>
-            Interface preview · Offline sample catalog · No employer database
-            connected. Open image to enlarge.
+            Portfolio reconstruction · Search and inspect generic sample devices.
           </figcaption>
         </figure>
       ) : project.id === "quality" ? (
-        <figure className="source-screenshot">
-          <img
-            src="/projects/quality-source.png"
-            width="1600"
-            height="1000"
-            alt="Measurement pass rate chart from the synthetic automotive quality sample"
-          />
-          <figcaption>
-            Synthetic data chart from the public project repository.
-          </figcaption>
-        </figure>
+        <QualityDemo />
       ) : (
         <figure className="source-screenshot">
           <div
@@ -117,6 +99,19 @@ export default function ProjectDialog({ project, onClose }) {
           </div>
         ))}
       </div>
+      <section className="project-evidence" aria-label="Architecture and validation review">
+        <h3>Follow the engineering decisions</h3>
+        <p>{project.evidenceIntro}</p>
+        <ol className="evidence-flow">
+          {project.architecture.map(([title, detail], index) => (
+            <li key={title}><strong>{index + 1}. {title}</strong><span>{detail}</span></li>
+          ))}
+        </ol>
+        <h3>What to inspect</h3>
+        <ul className="evidence-checks">
+          {project.reviewChecks.map((check) => <li key={check}>{check}</li>)}
+        </ul>
+      </section>
       <div className="dialog-actions">
         {project.repo && (
           <a
