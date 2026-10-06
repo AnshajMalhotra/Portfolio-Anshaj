@@ -26,11 +26,7 @@ export default function Contacts() {
       <div className="contact-copy">
         <p className="eyebrow">04 / LET’S CONNECT</p>
         <h2>
-          Have a device,
-          <br />
-          data or systems
-          <br />
-          <span>challenge?</span>
+          Let’s build something <span>that connects.</span>
         </h2>
         <p>
           I’m looking for a Werkstudent role or a practical Master’s thesis

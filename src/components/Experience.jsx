@@ -40,7 +40,7 @@ export default function Experience() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">02 / EXPERIENCE</p>
-          <h2>Hands-on, across the stack.</h2>
+          <h2>Built with <em>real teams.</em></h2>
         </div>
         <p>
           Firmware, data pipelines and applications.

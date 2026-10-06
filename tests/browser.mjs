@@ -19,9 +19,26 @@ try {
   assert.equal(await page.locator(".more-card").count(), 6);
   await page.locator(".hero-portrait img").evaluate((img) => img.decode());
   const desktopPortrait = await page.locator(".hero-portrait img").boundingBox();
-  assert.equal(Math.round(desktopPortrait.width), 280);
-  assert.equal(Math.round(desktopPortrait.height), 280);
-  assert.equal(await page.locator(".connectivity-backdrop svg").count(), 1);
+  assert.ok(desktopPortrait.width >= 280 && desktopPortrait.width <= 340);
+  assert.ok(Math.abs(desktopPortrait.width / desktopPortrait.height - 0.8) < 0.01);
+  const contrast = await page.evaluate(() => {
+    const luminance = (color) => {
+      const rgb = color.match(/[\d.]+/g).slice(0, 3).map(Number).map((value) => {
+        const channel = value / 255;
+        return channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+      });
+      return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+    };
+    const ratio = (foreground, background) => {
+      const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+      return (values[0] + 0.05) / (values[1] + 0.05);
+    };
+    const lead = getComputedStyle(document.querySelector(".hero-lead"));
+    const button = getComputedStyle(document.querySelector(".pill-button"));
+    const contact = getComputedStyle(document.querySelector(".contact-section"));
+    return [ratio(lead.color, getComputedStyle(document.documentElement).backgroundColor), ratio(button.color, button.backgroundColor), ratio(contact.color, contact.backgroundColor)];
+  });
+  assert.ok(contrast.every((ratio) => ratio >= 4.5), `Text contrast: ${contrast}`);
   const broken = await page
     .locator('a[href^="#"]')
     .evaluateAll((links) =>
@@ -40,6 +57,7 @@ try {
   await page.keyboard.press("Escape");
   await page.getByRole("dialog").waitFor({ state: "detached" });
   assert.equal(await page.getByRole("dialog").count(), 0);
+  assert.equal(await trigger.evaluate((element) => element === document.activeElement), true);
   assert.equal(new URL(page.url()).hash, "#projects");
   await page.goto(`${base}/#project/locate`);
   await page.getByRole("dialog").waitFor({ state: "visible" });
@@ -95,8 +113,8 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(base);
   const mobilePortrait = await page.locator(".hero-portrait img").boundingBox();
-  assert.equal(Math.round(mobilePortrait.width), 190);
-  assert.equal(Math.round(mobilePortrait.height), 190);
+  assert.ok(mobilePortrait.width >= 190 && mobilePortrait.width <= 260);
+  assert.ok(mobilePortrait.height > 0);
   await page.getByRole("button", { name: "Menu" }).click();
   await page
     .getByRole("navigation", { name: "Main navigation" })
@@ -115,6 +133,14 @@ try {
     "auto",
   );
   await fs.mkdir(".local-review", { recursive: true });
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto(base);
+  await page.evaluate(() => {
+    const sizes = Array.from(document.body.querySelectorAll("*")).map((element) => [element, parseFloat(getComputedStyle(element).fontSize)]);
+    for (const [element, size] of sizes) element.style.fontSize = `${size * 2}px`;
+  });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "Content must reflow at 200% text size");
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(base);
   await page.screenshot({ path: ".local-review/redesign-mobile.png" });
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -137,6 +163,7 @@ try {
     path: ".local-review/redesign-desktop.png",
     fullPage: true,
   });
+  await page.screenshot({ path: ".local-review/portfolio-v2-hero.png" });
   assert.deepEqual(errors, []);
   console.log("Portfolio browser checks passed");
 } finally {

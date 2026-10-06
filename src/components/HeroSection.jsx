@@ -4,14 +4,14 @@ export default function HeroSection() {
       <div className="hero-main">
         <div className="hero-copy">
           <p className="eyebrow">
-            <span className="status-dot" /> Anshaj Malhotra · Karlsruhe, Germany
+            <span className="status-dot" /> Engineering portfolio · Karlsruhe, Germany
           </p>
-          <p className="hero-role">IoT &amp; Embedded Systems Engineer</p>
           <h1>
-            Engineering
+            Anshaj
             <br />
-            <em>what connects.</em>
+            <em>Malhotra.</em>
           </h1>
+          <p className="hero-role">IoT &amp; Embedded Systems Engineer</p>
           <p className="hero-lead">
             I connect devices, data and applications — from BLE firmware and
             RTLS pipelines to industrial web tools.
@@ -32,20 +32,22 @@ export default function HeroSection() {
           <img
             src="/portrait.webp"
             alt="Portrait of Anshaj Malhotra"
-            width="280"
-            height="280"
+            width="340"
+            height="425"
             fetchPriority="high"
           />
           <figcaption>
-            <strong>Anshaj Malhotra</strong>
+            <strong>From devices to useful systems.</strong>
             <span>Engineer · M.Eng. student</span>
           </figcaption>
         </figure>
       </div>
       <div className="hero-bottom">
-        <span>BLE &amp; firmware · IoT &amp; localization · Applications &amp; data</span>
+        <span><b>01</b> Embedded &amp; firmware</span>
+        <span><b>02</b> IoT &amp; localization</span>
+        <span><b>03</b> Applications &amp; data</span>
         <a href="#projects">
-          Scroll to discover <span aria-hidden="true">↓</span>
+          Selected work <span aria-hidden="true">↓</span>
         </a>
       </div>
     </section>

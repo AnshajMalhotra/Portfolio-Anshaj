@@ -20,7 +20,7 @@ The browser suite in `tests/browser.mjs` uses Playwright and an installed Chrome
 - Project claims and source links: `src/data/projects.js`.
 - Case studies have shareable `#project/locate`, `#project/rtls` and `#project/quality` links, with native modal dialogs, focus restoration, Escape handling and Tab boundaries.
 - Three featured projects precede professional experience; six additional project cards follow it. Education and language details are in About.
-- The circuit background is a static SVG; no 3D runtime is loaded.
+- The v2 design uses an off-white editorial layout, charcoal text and cobalt accents. A single stylesheet defines shared colors, spacing and responsive layouts; case-study demos share those tokens. Manrope is bundled locally, and the old circuit backdrop is retired.
 - Contact opens an encoded email draft in the visitor's mail app. The visitor reviews and sends it there. The previous Google Apps Script endpoint returned HTTP 403 during a delivery check; the site no longer uses it or claims server receipt.
 - `public/site` is the only public asset directory. Original legacy assets elsewhere under `public` are not included in the build.
 - German and English CVs are `public/site/resume-de.pdf` and `public/site/resume-en.pdf`. The English version translates the German source without adding dates or achievements.

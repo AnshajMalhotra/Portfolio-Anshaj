@@ -14,9 +14,7 @@ export default function AboutMe() {
       <div className="section-intro">
         <p className="eyebrow">03 / ABOUT ME</p>
         <h2>
-          Curious across
-          <br />
-          <em>the whole system.</em>
+          Curious about <em>the whole system.</em>
         </h2>
       </div>
       <div className="about-layout">

@@ -75,13 +75,11 @@ export default function Projects() {
       <div className="section-intro">
         <p className="eyebrow">01 / SELECTED WORK</p>
         <h2>
-          Selected
-          <br />
-          <em>engineering work.</em>
+          Engineering, <em>in practice.</em>
         </h2>
         <p>
-          A few problems I have worked through, from device data and interfaces
-          to embedded prototypes.
+          Three selected projects connecting hardware, software and data.
+          Open a case study to inspect the work and try its sample.
         </p>
       </div>
       <div className="featured-list">
@@ -97,7 +95,7 @@ export default function Projects() {
                 </p>
                 <h3>{project.title}</h3>
                 <p className="featured-summary">
-                  {project.subtitle} {project.contribution}
+                  {project.contribution}
                 </p>
                 <div className="project-tags">
                   {project.tags.map((tag) => (
@@ -137,9 +135,7 @@ export function AdditionalProjects() {
         <div className="more-work-title">
           <p className="eyebrow">MORE PROJECTS</p>
           <h2>
-            Ideas, prototypes
-            <br />
-            and practice.
+            More from <em>the workbench.</em>
           </h2>
         </div>
         <div className="more-grid">

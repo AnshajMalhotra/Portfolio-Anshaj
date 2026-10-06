@@ -16,7 +16,7 @@ export default function Header() {
           aria-label="Anshaj Malhotra, home"
           onClick={() => setOpen(false)}
         >
-          AM<span>✳</span>
+          AM<span>.</span>
         </a>
         <nav
           className={open ? "navigation is-open" : "navigation"}
