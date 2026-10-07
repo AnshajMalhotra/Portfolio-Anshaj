@@ -1,12 +1,44 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createContactDraft } from "../src/lib/contact.js";
+import * as contact from "../src/lib/contact.js";
 
 const fields = {
   name: " Test User ",
   email: " test@example.com ",
   message: " A test message ",
 };
+test("submits trimmed fields to the Google Sheet endpoint and requires confirmed success", async () => {
+  assert.equal(typeof contact.sendContact, "function", "Direct contact submission must be available");
+  const result = await contact.sendContact(fields, { fetcher: async (url, options) => {
+    assert.equal(url, "https://script.google.com/macros/s/AKfycbz9CBY0KmUP4D9S85TeJ1fMLCgSIzSEhClf8hfniwCY6lfuj2lwXvMc0UtwYRscSzpU/exec");
+    assert.equal(options.method, "POST");
+    assert.equal(options.body.get("name"), "Test User");
+    assert.equal(options.body.get("email"), "test@example.com");
+    assert.equal(options.body.get("message"), "A test message");
+    return { ok: true, json: async () => ({ status: "success" }) };
+  } });
+  assert.equal(result, true);
+});
+
+test("does not report delivery for failed HTTP, error responses, or invalid JSON", async () => {
+  assert.equal(typeof contact.sendContact, "function");
+  for (const response of [
+    { ok: false },
+    { ok: true, json: async () => ({ status: "error" }) },
+    { ok: true, json: async () => { throw new SyntaxError("Not JSON"); } },
+  ]) await assert.rejects(contact.sendContact(fields, { fetcher: async () => response }));
+});
+
+test("aborts a stalled submission", async () => {
+  assert.equal(typeof contact.sendContact, "function");
+  await assert.rejects(contact.sendContact(fields, {
+    timeoutMs: 5,
+    fetcher: (_url, { signal }) => new Promise((_resolve, reject) => {
+      signal.addEventListener("abort", () => reject(new DOMException("Timed out", "AbortError")), { once: true });
+    }),
+  }), { name: "AbortError" });
+});
 test("addresses the owner and trims the draft details", () => {
   const draft = new URL(createContactDraft(fields));
   assert.equal(draft.protocol, "mailto:");

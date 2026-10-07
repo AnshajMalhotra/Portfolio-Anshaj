@@ -132,6 +132,25 @@ try {
     ),
     "auto",
   );
+  const contactEndpoint = "https://script.google.com/macros/s/AKfycbz9CBY0KmUP4D9S85TeJ1fMLCgSIzSEhClf8hfniwCY6lfuj2lwXvMc0UtwYRscSzpU/exec";
+  await page.getByLabel("Your name").fill("Browser test");
+  await page.getByLabel("Email address").fill("test@example.com");
+  await page.getByLabel("What would you like to work on?").fill("Mocked submission only");
+  await page.route(contactEndpoint, (route) => route.fulfill({
+    status: 200, contentType: "application/json", headers: { "access-control-allow-origin": "*" }, body: JSON.stringify({ status: "error" }),
+  }));
+  await page.getByRole("button", { name: "Send message" }).click();
+  await page.getByText(/Delivery could not be confirmed/).waitFor();
+  assert.equal(await page.getByLabel("What would you like to work on?").inputValue(), "Mocked submission only");
+  assert.equal(await page.getByRole("link", { name: "Send by email instead" }).isVisible(), true);
+  await page.unroute(contactEndpoint);
+  await page.route(contactEndpoint, (route) => route.fulfill({
+    status: 200, contentType: "application/json", headers: { "access-control-allow-origin": "*" }, body: JSON.stringify({ status: "success" }),
+  }));
+  await page.getByRole("button", { name: "Send message" }).click();
+  await page.getByText(/Message received/).waitFor();
+  assert.equal(await page.getByLabel("What would you like to work on?").inputValue(), "");
+  await page.unroute(contactEndpoint);
   await fs.mkdir(".local-review", { recursive: true });
   await page.setViewportSize({ width: 1024, height: 900 });
   await page.goto(base);

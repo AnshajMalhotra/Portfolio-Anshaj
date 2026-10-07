@@ -1,24 +1,38 @@
-import { useState } from "react";
-import { createContactDraft } from "../lib/contact";
+import { useRef, useState } from "react";
+import { createContactDraft, sendContact } from "../lib/contact";
 export default function Contacts() {
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [emailFallback, setEmailFallback] = useState("");
+  const sending = useRef(false);
   function change(event) {
     setFields({ ...fields, [event.target.name]: event.target.value });
     setStatus("idle");
     setError("");
+    setEmailFallback("");
   }
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
+    if (sending.current) return;
+    let draft = "";
     try {
-      const draft = createContactDraft(fields);
-      window.location.href = draft;
-      setStatus("draft");
+      draft = createContactDraft(fields);
+      sending.current = true;
+      setStatus("sending");
       setError("");
-    } catch (draftError) {
-      setError(draftError.message);
-      setStatus("invalid");
+      setEmailFallback("");
+      await sendContact(fields);
+      setStatus("success");
+      setFields({ name: "", email: "", message: "" });
+    } catch (submissionError) {
+      setError(submissionError.name === "AbortError"
+        ? "This is taking longer than expected; delivery is unconfirmed. Your message is still here. Please contact me by email."
+        : draft ? "Delivery could not be confirmed. Your message is still here; please try again or contact me by email." : submissionError.message);
+      setEmailFallback(draft);
+      setStatus("error");
+    } finally {
+      sending.current = false;
     }
   }
   return (
@@ -54,7 +68,7 @@ export default function Contacts() {
           </a>
         </div>
       </div>
-      <form className="contact-form" onSubmit={submit}>
+      <form className="contact-form" onSubmit={submit} aria-busy={status === "sending"}>
         <h3>Start a conversation</h3>
         <p>A role, a thesis topic, or a technical question.</p>
         <label htmlFor="contact-name">Your name</label>
@@ -67,6 +81,7 @@ export default function Contacts() {
           value={fields.name}
           onChange={change}
           placeholder="Name"
+          disabled={status === "sending"}
         />
         <label htmlFor="contact-email">Email address</label>
         <input
@@ -79,6 +94,7 @@ export default function Contacts() {
           value={fields.email}
           onChange={change}
           placeholder="you@company.com"
+          disabled={status === "sending"}
         />
         <label htmlFor="contact-message">What would you like to work on?</label>
         <textarea
@@ -90,15 +106,17 @@ export default function Contacts() {
           value={fields.message}
           onChange={change}
           placeholder="Tell me a little about the opportunity…"
+          disabled={status === "sending"}
         />
         <p className="form-note">
-          Opens your email app. Review and send the draft there.
+          Your details are sent directly to Anshaj and stored privately to reply to your enquiry.
         </p>
         <button
           type="submit"
           className="button primary"
+          disabled={status === "sending"}
         >
-          Open email draft ↗
+          {status === "sending" ? "Sending…" : "Send message ↗"}
         </button>
         <p
           className={"form-status " + status}
@@ -106,10 +124,11 @@ export default function Contacts() {
           aria-live="polite"
           aria-atomic="true"
         >
-          {status === "draft"
-            ? "Your draft is ready. Send it in your email app. If no app opened, use the email address above; your message is still here."
+          {status === "success"
+            ? "Message received. Thanks for getting in touch."
             : error}
         </p>
+        {emailFallback && <a className="quiet-link" href={emailFallback}>Send by email instead ↗</a>}
       </form>
     </section>
   );
